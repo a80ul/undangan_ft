@@ -1,0 +1,141 @@
+/* --- RESPONSIVE MOBILE UI --- */
+
+@media screen and (max-width: 768px) {
+    :root {
+        --logo-size: 80px; 
+        --divisi-logo-size: 40px; 
+    }
+
+    .envelope-wrapper {
+        width: 320px; 
+        height: 210px;
+    }
+
+    .envelope {
+        width: 320px;
+        height: 210px;
+    }
+
+    .flap {
+        border-left: 160px solid transparent;
+        border-right: 160px solid transparent;
+        border-top: 120px solid var(--env-flap);
+    }
+
+    .flap::after {
+        width: 320px;
+        height: 120px;
+        top: -120px;
+        left: -160px;
+    }
+
+    .pocket {
+        height: 120px;
+    }
+
+    .letter-peek {
+        width: 280px; 
+        height: 150px;
+        bottom: 15px;
+    }
+
+    .envelope.is-open .letter-peek {
+        transform: translate(-50%, -80px); 
+    }
+    .logo-btn {
+        left: 50%; 
+        width: var(--logo-size);
+        height: var(--logo-size);
+    }
+
+    .logo-btn img {
+        width: 100%; 
+        height: 100%;
+    }
+
+    .full-letter {
+        position: relative;
+        width: 92%;
+        max-width: 500px;
+        max-height: 80vh;
+        margin: 0 auto;
+        overflow: hidden; 
+        background-color: #f4f1ed; 
+        border-radius: 8px; /* Sudut lebih halus */
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        display: flex;
+        flex-direction: column;
+        transform: rotate(0deg);
+    }
+
+    .content {
+        overflow-y: auto;
+        overflow-x: hidden;
+        flex: 1;
+        width: 100%;
+        padding: 40px 25px 40px 25px;
+        box-sizing: border-box;
+        background-color: #f4f1ed;
+        background-image: 
+            linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), 
+            url("https://www.transparenttextures.com/patterns/p6.png");
+        background-size: 100% 1.8rem, auto; 
+        background-repeat: repeat;
+        background-attachment: local; /* Tekstur mengalir bersama teks */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .content h2 {
+        font-family: 'Georgia', serif;
+        font-size: 1.3rem;
+        margin-bottom: 25px;
+        text-align: center;
+        border-bottom: 2px solid #333;
+        padding-bottom: 10px;
+        color: #1a1a1a;
+    }
+
+    .body-text p {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1rem;
+        line-height: 1.8rem;
+        margin-bottom: 1.8rem;
+        text-align: left;
+        color: #1a1a1a;
+        word-wrap: break-word;
+    }
+
+    .divisi-logos {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .divisi-item {
+        width: 45px !important;
+        height: 45px !important;
+        flex: 0 0 45px;
+    }
+
+    .divisi-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    /* 8. Tombol Close di paling bawah content */
+    .close-btn {
+        display: block;
+        margin: 30px auto 10px;
+        padding: 12px 40px;
+        background-color: #ff4500;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+}

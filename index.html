@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halloween Interactive Invitation</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_mobile.css">
+</head>
+<body>
+    <div class="bat-container">
+        <div class="bat" style="--d: 0s; --t: 10%; --s: 0.8;"></div>
+        <div class="bat" style="--d: 2s; --t: 40%; --s: 1.2;"></div>
+        <div class="bat" style="--d: 4s; --t: 70%; --s: 0.5;"></div>
+    </div>
+
+    <audio id="backsound" loop>
+        <source src="backsound.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div class="envelope-wrapper" id="wrapper">
+            <div class="envelope" id="envelope">
+                <div class="flap"></div>
+                <div class="pocket"></div>
+                
+                <div class="logo-btn" id="mainLogo" onclick="phaseOneOpen()">
+                    <img src="logo.png" alt="Logo">
+                </div>
+
+                <div class="letter-peek" id="letterPeek" onclick="phaseTwoPopup()">
+                    <div class="paper-grain"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="full-letter">
+            <div class="paper-grain"></div>
+            <div class="content">
+                <div class="divisi-logos">
+                    <div class="divisi-item">
+                        <img src="printing.png" alt="Divisi 1">
+                    </div>
+                    <div class="divisi-item">
+                        <img src="merch.png" alt="Divisi 2">
+                    </div>
+                    <div class="divisi-item">
+                        <img src="apparel.png" alt="Divisi 3">
+                    </div>
+                </div>
+
+                <h2>Salam Creative</h2>
+
+                <div class="body-text">
+                    <p>Assalamualaikum Wr. Wb.</p>
+                    
+                    <p>Alhamdulillah, puji syukur ke hadirat Allah SWT, semoga segala aktivitas kita mendapat rida dan selalu dijaga-Nya dalam keikhlasan. Shalawat dan salam selalu tercurahkan kepada junjungan kita Nabi Besar Muhammad SAW beserta para sahabat dan orang-orang yang senantiasa memperjuangkan risalah-Nya.</p>
+                    
+                    <p>Dengan mengharap rida dan hidayah dari Allah SWT, kami mengundang 2 (dua) orang perwakilan Bapak/Ibu Guru agar berkenan kiranya hadir sebagai Guru Tamu pada:</p>
+                    
+                    <div class="event-details">
+                        <p><strong>Hari/Tanggal :</strong> 04 April 2026</p>
+                        <p><strong>Jam :</strong> 03.00 s/d Selesai</p>
+                        <p><strong>Tempat :</strong> Green Design</p>
+                        <p><strong>Acara :</strong> Presentasi Hasil Final Project</p>
+                    </div>
+                    
+                    <p>Demikian undangan ini kami sampaikan. Mengingat pentingnya acara tersebut, maka kehadiran Bapak/Ibu sangat kami harapkan. Atas perhatiannya, kami ucapkan terima kasih.</p>
+                    
+                    <div class="signature">
+                        <p>Hormat Kami,</p>
+                        <br><br>
+                        <p><strong>TIM CLASS DESIGN VOL.12</strong></p>
+                    </div>
+                </div>
+
+                <button class="close-btn" onclick="closeAll()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

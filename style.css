@@ -1,0 +1,319 @@
+:root {
+    --bg-image: url('bg.jpg');
+    --env-color: #dedede;
+    --env-flap: #c5c5c5;
+    --accent: #ff6600;
+    --texture-paper: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+    --texture-envelope: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+    --transition-smooth: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    --logo-size: 100px;
+    --logo-glow: #ff6600;
+    --logo-border-radius: 50%;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    perspective: 1000px;
+}
+
+.envelope-wrapper {
+    position: relative;
+    width: 380px;
+    height: 250px;
+}
+
+.envelope {
+    position: relative;
+    width: 380px;
+    height: 250px;
+    background-color: var(--env-color);
+    background-image: var(--texture-envelope); 
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0; height: 0;
+    border-left: 190px solid transparent;
+    border-right: 190px solid transparent;
+    border-top: 140px solid var(--env-flap);
+    z-index: 4;
+    transform-origin: top;
+    transition: var(--transition-smooth);
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+}
+
+.flap::after {
+    content: '';
+    position: absolute;
+    top: -140px; left: -190px;
+    width: 380px; height: 140px;
+    background-image: var(--texture-envelope);
+    opacity: 0.3;
+}
+
+.pocket {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; height: 140px;
+    background-color: var(--env-color);
+    background-image: var(--texture-envelope);
+    z-index: 3;
+    border-top: none; 
+    background-image: var(--texture-envelope),
+                      radial-gradient(circle at 50% 10%, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 60%);
+    background-blend-mode: normal, overlay;
+}
+
+.logo-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.logo-btn img {
+    width: var(--logo-size); 
+    height: var(--logo-size);
+    object-fit: contain; 
+    border-radius: var(--logo-border-radius);
+    filter: drop-shadow(0 0 15px var(--logo-glow));
+    transition: transform 0.3s ease;
+}
+
+.logo-btn:hover img {
+    transform: scale(1.1); 
+    filter: drop-shadow(0 0 25px var(--accent));
+}
+
+.letter-peek {
+    position: absolute;
+    bottom: 20px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 330px;
+    height: 180px;
+    background: #e0e0e0;
+    z-index: 2; 
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    opacity: 0; 
+}
+
+/* LOGIKA ANIMASI*/
+.envelope.is-open .flap {
+    transform: rotateX(180deg);
+    z-index: 1; 
+}
+
+.envelope.is-open .letter-peek {
+    transform: translate(-50%, -100px); 
+    opacity: 1;
+}
+
+.envelope.is-open .logo-btn {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(0.5); 
+    pointer-events: none;
+}
+
+/* POPUP OVERLAY */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition-smooth);
+    overflow: hidden; 
+}
+
+.popup-overlay.show { visibility: visible; opacity: 1; }
+
+/* KERTAS */
+.full-letter {
+    position: relative;
+    width: 90%;
+    max-width: 550px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background-color: #ffffff; 
+    background-image: 
+        url("https://www.transparenttextures.com/patterns/p6.png"), 
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4), rgba(0,0,0,0.1));
+    background-blend-mode: normal, multiply;
+    padding: 30px 35px 50px 35px; 
+    border-radius: 2px;
+    box-shadow: 
+        0 1px 1px rgba(0,0,0,0.1), 
+        0 10px 0 -5px #ffffff, 
+        0 10px 30px rgba(0,0,0,0.6);
+        
+    transform: translateY(50px) rotate(-1deg);
+    transition: var(--transition-smooth);
+    display: block;
+}
+
+.popup-overlay.show .full-letter {
+    transform: translateY(0) rotate(-1deg);
+}
+
+
+.close-btn {
+    position: relative;
+    z-index: 10;
+    margin-top: 30px;
+    padding: 12px 30px;
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.full-letter::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px);
+    background-size: 100% 1.8rem;
+    pointer-events: none; 
+    z-index: 1;
+}
+
+.content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    width: 100%;
+}
+
+.paper-grain {
+    position: absolute;
+    inset: 0;
+    background-color: #eee;
+    background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+    opacity: 0.8;
+}
+
+.content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+}
+
+.divisi-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1px; 
+    margin-bottom: px; 
+    width: 100%; 
+}
+
+.divisi-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--divisi-logo-size);
+    height: var(--divisi-logo-size);
+}
+
+.divisi-item img {
+    width: 40%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    -webkit-filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.content h2 {
+    font-family: 'Georgia', serif;
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+}
+
+.body-text {
+    text-align: left;
+}
+
+.full-letter::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px);
+    background-size: 100% 1.8rem;
+    pointer-events: none; 
+    z-index: 1;
+}
+
+.event-details {
+    margin-left: 0px;
+    margin-bottom: 1.8rem;
+}
+
+.event-details p {
+    margin-bottom: 0;
+}
+
+.signature {
+    margin-top: 40px;
+    text-align: right;
+}
+
+
+/* Animasi Kelelawar */
+.bat-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.bat {
+    position: absolute;
+    width: 50px;
+    height: 30px;
+    background: url('https://img.icons8.com/ios-filled/50/ff6600/bat.png') no-repeat;
+    background-size: contain;
+    left: -100px;
+    top: var(--t);
+    transform: scale(var(--s));
+    animation: fly 8s linear infinite;
+    animation-delay: var(--d);
+    opacity: 0.6;
+}
+
+
+@keyframes fly {
+    0% { left: -100px; }
+    100% { left: 110%; }
+}
